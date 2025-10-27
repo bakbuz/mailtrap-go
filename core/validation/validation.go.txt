@@ -1,0 +1,58 @@
+package validation
+
+import (
+	"fmt"
+	"strings"
+)
+
+const (
+	separator string = ", "
+)
+
+// Represents validation result.
+type ValidationResult struct {
+	// List of errors.
+	Errors []string
+}
+
+// Constructors
+
+func NewValidationResult() *ValidationResult {
+	return &ValidationResult{
+		Errors: make([]string, 0),
+	}
+}
+
+func NewValidationResultFromErrors(errs []string) *ValidationResult {
+	if errs == nil {
+		return NewValidationResult()
+	}
+
+	filteredErrors := make([]string, 0, len(errs))
+	for _, err := range errs {
+		if strings.TrimSpace(err) != "" {
+			filteredErrors = append(filteredErrors, err)
+		}
+	}
+
+	return &ValidationResult{
+		Errors: filteredErrors,
+	}
+}
+
+// Methods
+
+func (r *ValidationResult) IsValid() bool {
+	return len(r.Errors) == 0
+}
+
+func (r *ValidationResult) EnsureValidity(paramName string) error {
+	if !r.IsValid() {
+		return fmt.Errorf("validation failed for parameter '%s': %s", paramName, r.String())
+	}
+	return nil
+}
+
+func (r *ValidationResult) String() string {
+	return strings.Join(r.Errors, separator)
+}

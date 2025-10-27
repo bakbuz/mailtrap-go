@@ -1,0 +1,68 @@
+package validation
+
+func NewValidationResultFromResults(results []*ValidationResult) *ValidationResult {
+	combined := &ValidationResult{}
+
+	for _, r := range results {
+		combined.Errors = append(combined.Errors, r.Errors...)
+		if r.RuleSetsExecuted != nil {
+			combined.RuleSetsExecuted = append(combined.RuleSetsExecuted, r.RuleSetsExecuted...)
+		}
+	}
+
+	// RuleSetsExecuted içinde tekrar edenleri kaldırmak istersen:
+	combined.RuleSetsExecuted = uniqueStrings(combined.RuleSetsExecuted)
+
+	return combined
+}
+
+
+
+// SetErrors: null kontrolü yapar ve hataları set eder.
+func (vr *ValidationResult) SetErrors(failures []ValidationFailure) error {
+	if failures == nil {
+		return errors.New("failures cannot be nil")
+	}
+
+	validFailures := make([]ValidationFailure, 0)
+	for _, f := range failures {
+		// null struct olmadığı için örneğin boş mesajı filtreleyebiliriz.
+		if f.ErrorMessage != "" {
+			validFailures = append(validFailures, f)
+		}
+	}
+
+	vr.Errors = validFailures
+	return nil
+}
+
+// AddError: tek bir ValidationFailure ekler. Eğer vr nil ise veya
+// failure.ErrorMessage boş ise hata döner.
+func (vr *ValidationResult) AddError(failure ValidationFailure) error {
+	if vr == nil {
+		return errors.New("validation result is nil")
+	}
+
+	if failure.ErrorMessage == "" {
+		return errors.New("validation failure must have a non-empty ErrorMessage")
+	}
+
+	vr.Errors = append(vr.Errors, failure)
+	return nil
+}
+
+
+// Yardımcı fonksiyon: string slice içindeki tekrarları kaldırır.
+func uniqueStrings(input []string) []string {
+	seen := make(map[string]struct{})
+	output := make([]string, 0)
+
+	for _, v := range input {
+		if _, exists := seen[v]; !exists {
+			seen[v] = struct{}{}
+			output = append(output, v)
+		}
+	}
+
+	return output
+}
