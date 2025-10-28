@@ -2,6 +2,7 @@ package request
 
 import (
 	"github.com/bakbuz/mailtrap-go/core/common"
+	"github.com/bakbuz/mailtrap-go/core/constants"
 	"github.com/bakbuz/mailtrap-go/emails/model"
 )
 
@@ -40,7 +41,7 @@ func (r *SendEmailRequest) WithAttach(content, fileName string) *SendEmailReques
 	return r
 }
 
-func (r *SendEmailRequest) WithAttach2(content, fileName string, disposition common.DispositionType, mimeType common.MimeType, contentId string) *SendEmailRequest {
+func (r *SendEmailRequest) WithAttach2(content, fileName string, disposition common.DispositionType, mimeType constants.MimeType, contentId string) *SendEmailRequest {
 	a := &model.Attachment{
 		Content:     content,
 		FileName:    fileName,

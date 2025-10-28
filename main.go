@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,6 +10,7 @@ import (
 	"os"
 	"sort"
 
+	"github.com/bakbuz/mailtrap-go/emails"
 	"github.com/bakbuz/mailtrap-go/emails/model"
 	"github.com/bakbuz/mailtrap-go/emails/request"
 )
@@ -25,15 +27,33 @@ func main() {
 }
 
 func DoWork() {
+	// request
 	req := request.Create().
 		WithFrom("john.doe@demomailtrap.com", "John Doe").
-		WithTo("hero.bill@galaxy.net", "").
+		WithTo("bayram@maydere.com", "").
 		WithSubject("Invitation to Earth").
 		WithTextBody("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.")
 
 	fmt.Println("request")
 	reqjson, _ := json.MarshalIndent(req, "", "  ")
 	fmt.Println(string(reqjson))
+
+	// client
+	var client emails.EmailClient = emails.NewEmailClient("")
+	res, err := client.Send(context.Background(), req)
+	if err != nil {
+		log.Fatal("hata")
+		log.Fatal(err)
+
+	}
+
+	if !res.Success {
+		for _, e := range res.ErrorData {
+			fmt.Println(e)
+		}
+	} else {
+		fmt.Println(res.MessageIds)
+	}
 }
 
 func requestlog() {

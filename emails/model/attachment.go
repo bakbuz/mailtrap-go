@@ -1,6 +1,9 @@
 package model
 
-import "github.com/bakbuz/mailtrap-go/core/common"
+import (
+	"github.com/bakbuz/mailtrap-go/core/common"
+	"github.com/bakbuz/mailtrap-go/core/constants"
+)
 
 // Represents email attachment.
 type Attachment struct {
@@ -37,7 +40,7 @@ type Attachment struct {
 	//
 	// Contains the attachment's MIME type identifier.
 	// E.g. "text/plain", "application/pdf", etc.
-	MimeType common.MimeType `json:"type,omitempty" validate:"omitempty,min=3"`
+	MimeType constants.MimeType `json:"type,omitempty" validate:"omitempty,min=3"`
 
 	// Gets the attachment's content ID.
 	//
@@ -56,21 +59,17 @@ type Attachment struct {
 // The Base64 encoded content of the attachment.
 // Required. Must be non-empty string.
 //
-//
 // fileName:
 // Attachment file name.
 // Required. Must be non-empty string.
-//
 //
 // disposition:
 // The attachment's content disposition, specifying how you would like the attachment to be displayed.
 // Optional. Defaults to DispositionType.Attachment if not specified explicitly.
 //
-//
 // mimeType:
 // Attachment MIME type identifier (e.g. "text/plain", "application/pdf", etc.)
 // Optional.
-//
 //
 // contentId:
 // The attachment's content ID.
@@ -81,7 +80,7 @@ type Attachment struct {
 // When content is null or empty.
 //
 // When fileName is null or empty.
-func NewAttachment(content string, fileName string, disposition common.DispositionType, mimeType common.MimeType, contentId string) *Attachment {
+func NewAttachment(content string, fileName string, disposition common.DispositionType, mimeType constants.MimeType, contentId string) *Attachment {
 
 	if content == "" {
 		panic("content cannot be empty")

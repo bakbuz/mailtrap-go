@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/bakbuz/mailtrap-go/core/common"
+	"github.com/bakbuz/mailtrap-go/core/constants"
 	"github.com/bakbuz/mailtrap-go/emails/model"
 	"github.com/stretchr/testify/assert"
 )
@@ -44,7 +45,7 @@ func TestValidation_ShouldFail_WhenMimeTypeIsEmpty(t *testing.T) {
 }
 
 func TestValidation_ShouldNotFail_WhenMimeTypeIsNotNullOrEmpty(t *testing.T) {
-	attachment := model.NewAttachment(_testContent, _testFileName, "", common.MimeType_TextPlain, "")
+	attachment := model.NewAttachment(_testContent, _testFileName, "", constants.MimeType_TextPlain, "")
 
 	result := attachment.Validate()
 
