@@ -25,7 +25,7 @@ type SendEmailRequest struct {
 	// Each object in this collection must contain the recipient's email address.
 	// Each object in this collection may optionally contain the recipient's name.
 	// At least one recipient must be specified in one of the collections: To, Cc or Bcc.
-	To []model.EmailAddress `json:"to" validate:"max=1000,dive"`
+	To []*model.EmailAddress `json:"to" validate:"max=1000,dive"`
 
 	// Gets a collection of EmailAddress objects, defining who will receive a carbon copy of email.
 	//
@@ -35,7 +35,7 @@ type SendEmailRequest struct {
 	// Each object in this collection must contain the recipient's email address.
 	// Each object in this collection may optionally contain the recipient's name.
 	// At least one recipient must be specified in one of the collections: To, Cc or Bcc.
-	Cc []model.EmailAddress `json:"cc,omitempty" validate:"omitempty,max=1000,dive"`
+	Cc []*model.EmailAddress `json:"cc,omitempty" validate:"omitempty,max=1000,dive"`
 
 	// Gets a collection of EmailAddress objects, defining who will receive a blind carbon copy of email.
 	//
@@ -45,12 +45,12 @@ type SendEmailRequest struct {
 	// Each object in this collection must contain the recipient's email address.
 	// Each object in this collection may optionally contain the recipient's name.
 	// At least one recipient must be specified in one of the collections: To, Cc or Bcc.
-	Bcc []model.EmailAddress `json:"bcc,omitempty" validate:"omitempty,max=1000,dive"`
+	Bcc []*model.EmailAddress `json:"bcc,omitempty" validate:"omitempty,max=1000,dive"`
 
 	// Gets a collection of Attachment objects, where you can specify any attachments you want to include.
 	//
 	// A collection of Attachment objects.
-	Attachments []model.Attachment `json:"attachments,omitempty"`
+	Attachments []*model.Attachment `json:"attachments,omitempty"`
 
 	// Gets a dictionary of header names and values to substitute for them.
 	//
@@ -122,9 +122,9 @@ type SendEmailRequest struct {
 	// Contains template variables object.
 	//
 	// Will be used only in case TemplateId is set.
-	TemplateVariables interface{} `json:"template_variables,omitempty"`
+	TemplateVariables map[string]interface{} `json:"template_variables,omitempty"`
 }
 
-func CreateSendEmailRequest() *SendEmailRequest {
+func Create() *SendEmailRequest {
 	return &SendEmailRequest{}
 }

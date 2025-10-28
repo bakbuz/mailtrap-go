@@ -14,29 +14,30 @@ import (
 )
 
 func main() {
-	/*
-		res1 := response.EmptySendEmailResponse
-		res2 := response.NewSuccessResponse([]string{"1"})
-		res3 := response.NewErrorResponse([]string{"error"})
-
-		fmt.Println(res1)
-		fmt.Println(res2)
-		fmt.Println(res3)
-
-		req := request.SendEmailRequest{}
-		fmt.Println(req)
-	*/
-
 	//emailval()
 	//attachmentval()
-	requestlog()
+	//requestlog()
 
 	//mime()
 	//mime2()
+
+	DoWork()
+}
+
+func DoWork() {
+	req := request.Create().
+		WithFrom("john.doe@demomailtrap.com", "John Doe").
+		WithTo("hero.bill@galaxy.net", "").
+		WithSubject("Invitation to Earth").
+		WithTextBody("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.")
+
+	fmt.Println("request")
+	reqjson, _ := json.MarshalIndent(req, "", "  ")
+	fmt.Println(string(reqjson))
 }
 
 func requestlog() {
-	req := request.CreateSendEmailRequest()
+	req := request.Create()
 	//req.From = model.NewEmailAddress("", "")
 	req.From = model.NewEmailAddress("a@a.com", "deli")
 
@@ -44,15 +45,15 @@ func requestlog() {
 	req.ReplyTo = model.NewEmailAddress("noreply@a.com", "noreply")
 
 	//req.To = []model.EmailAddress{}
-	req.To = []model.EmailAddress{*model.NewEmailAddress("target@a.com", "")}
+	req.To = []*model.EmailAddress{model.NewEmailAddress("target@a.com", "")}
 
 	//req.Cc = []model.EmailAddress{}
-	req.Cc = []model.EmailAddress{*model.NewEmailAddress("cc@a.com", "")}
+	req.Cc = []*model.EmailAddress{model.NewEmailAddress("cc@a.com", "")}
 
 	//req.Bcc = []model.EmailAddress{}
-	req.Bcc = []model.EmailAddress{*model.NewEmailAddress("Bcc@a.com", "")}
+	req.Bcc = []*model.EmailAddress{model.NewEmailAddress("Bcc@a.com", "")}
 
-	req.Attachments = []model.Attachment{*model.NewAttachment("içerik", "abc.txt", "", "", "")}
+	req.Attachments = []*model.Attachment{model.NewAttachment("içerik", "abc.txt", "", "", "")}
 
 	req.Headers = map[string]string{"key": "value", "one": "1"}
 
@@ -63,7 +64,7 @@ func requestlog() {
 	// req.Category = "kategori"
 
 	req.TemplateId = "welcome"
-	req.TemplateVariables = map[string]string{"key1": "val1", "key2": "val2"}
+	req.TemplateVariables = map[string]any{"key1": "val1", "key2": "val2"}
 
 	fmt.Println("request")
 	reqjson, _ := json.MarshalIndent(req, "", "  ")
