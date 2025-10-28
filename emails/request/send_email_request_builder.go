@@ -40,7 +40,7 @@ func (r *SendEmailRequest) WithAttach(content, fileName string) *SendEmailReques
 	return r
 }
 
-func (r *SendEmailRequest) WithAttach2(content, fileName string, disposition common.DispositionType, mimeType common.MediaType, contentId string) *SendEmailRequest {
+func (r *SendEmailRequest) WithAttach2(content, fileName string, disposition common.DispositionType, mimeType common.MimeType, contentId string) *SendEmailRequest {
 	a := &model.Attachment{
 		Content:     content,
 		FileName:    fileName,

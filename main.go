@@ -97,7 +97,7 @@ func emailval() {
 }
 
 func attachmentval() {
-	//attachment := model.NewAttachment("test content", "test.txt", common.DispositionType_Attachment, common.MediaType_ImagePNG, "s")
+	//attachment := model.NewAttachment("test content", "test.txt", common.DispositionType_Attachment, common.MimeType_ImagePNG, "s")
 
 	attachment := model.NewAttachment("test content", "test.txt", "", "abc", "")
 

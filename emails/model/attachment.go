@@ -37,7 +37,7 @@ type Attachment struct {
 	//
 	// Contains the attachment's MIME type identifier.
 	// E.g. "text/plain", "application/pdf", etc.
-	MimeType common.MediaType `json:"type,omitempty" validate:"omitempty,min=3"`
+	MimeType common.MimeType `json:"type,omitempty" validate:"omitempty,min=3"`
 
 	// Gets the attachment's content ID.
 	//
@@ -81,7 +81,7 @@ type Attachment struct {
 // When content is null or empty.
 //
 // When fileName is null or empty.
-func NewAttachment(content string, fileName string, disposition common.DispositionType, mimeType common.MediaType, contentId string) *Attachment {
+func NewAttachment(content string, fileName string, disposition common.DispositionType, mimeType common.MimeType, contentId string) *Attachment {
 
 	if content == "" {
 		panic("content cannot be empty")
