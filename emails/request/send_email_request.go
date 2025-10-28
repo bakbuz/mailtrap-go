@@ -1,6 +1,6 @@
 package request
 
-import "gitlab.com/maydere/mailtrap-go/emails/model"
+import "github.com/bakbuz/mailtrap-go/emails/model"
 
 // Represents request object used to send email.
 type SendEmailRequest struct {
@@ -25,7 +25,7 @@ type SendEmailRequest struct {
 	// Each object in this collection must contain the recipient's email address.
 	// Each object in this collection may optionally contain the recipient's name.
 	// At least one recipient must be specified in one of the collections: To, Cc or Bcc.
-	To []model.EmailAddress `json:"to" validate:"required,min=1,max=1000,dive"`
+	To []model.EmailAddress `json:"to" validate:"max=1000,dive"`
 
 	// Gets a collection of EmailAddress objects, defining who will receive a carbon copy of email.
 	//

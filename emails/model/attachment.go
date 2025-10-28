@@ -1,6 +1,6 @@
 package model
 
-import "gitlab.com/maydere/mailtrap-go/core/common"
+import "github.com/bakbuz/mailtrap-go/core/common"
 
 // Represents email attachment.
 type Attachment struct {

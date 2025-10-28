@@ -1,4 +1,4 @@
-module gitlab.com/maydere/mailtrap-go
+module github.com/bakbuz/mailtrap-go
 
 go 1.25.2
 

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/maydere/mailtrap-go/core/common"
-	"gitlab.com/maydere/mailtrap-go/emails/model"
+	"github.com/bakbuz/mailtrap-go/core/common"
+	"github.com/bakbuz/mailtrap-go/emails/model"
 )
 
 const (

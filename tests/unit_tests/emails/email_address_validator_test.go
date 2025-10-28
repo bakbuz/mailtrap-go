@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/maydere/mailtrap-go/emails/model"
+	"github.com/bakbuz/mailtrap-go/emails/model"
 )
 
 func TestValidation_ShouldFail_WhenProvidedEmailIsInvalid(t *testing.T) {

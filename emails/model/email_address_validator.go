@@ -1,7 +1,7 @@
 package model
 
 import (
-	"gitlab.com/maydere/mailtrap-go/core/validation"
+	"github.com/bakbuz/mailtrap-go/core/validation"
 )
 
 func (m *EmailAddress) Validate() error {

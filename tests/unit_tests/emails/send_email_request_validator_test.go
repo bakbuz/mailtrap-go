@@ -4,12 +4,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/maydere/mailtrap-go/emails/model"
-	"gitlab.com/maydere/mailtrap-go/emails/request"
+	"github.com/bakbuz/mailtrap-go/emails/model"
+	"github.com/bakbuz/mailtrap-go/emails/request"
 )
 
 const (
-	_validEmail   string = "someone@domean.com"
+	_validEmail   string = "someone@domain.com"
 	_invalidEmail string = "someone"
 	_templateId   string = "ID"
 )
@@ -20,36 +20,54 @@ const (
 
 func TestValidation_ShouldFail_WhenNoRecipientsPresent(t *testing.T) {
 	req := request.CreateSendEmailRequest()
-
-	result := req.Validate()
-	assert.NotNil(t, result)
+	err := req.Validate()
+	assert.NotNil(t, err)
 }
-  
-  func TestValidation_ShouldNotFail_WhenOnlyToRecipientsPresent(t *testing.T)  {
-      req := request.CreateSendEmailRequest()
-	  req.To = []model.EmailAddress{*model.NewEmailAddress(_validEmail,"")}
-          
 
-      //var result = SendEmailRequestValidator.Instance.TestValidate(request);
-      //result.ShouldNotHaveValidationErrorFor(r => r);
-  }
+func TestValidation_ShouldNotFail_WhenOnlyToRecipientsPresent(t *testing.T) {
+	req := request.CreateSendEmailRequest()
+	req.From = model.NewEmailAddress(_validEmail, "")
+	req.Subject = "subject"
+	req.TextBody = "text body"
 
-  
-  func TestValidation_ShouldNotFail_WhenOnlyCcRecipientsPresent(t *testing.T)  {
-      var request = SendEmailRequest
-          .Create()
-          .Cc(_validEmail);
+	req.To = []model.EmailAddress{*model.NewEmailAddress(_validEmail, "")}
 
-      //var result = SendEmailRequestValidator.Instance.TestValidate(request);
-      //result.ShouldNotHaveValidationErrorFor(r => r);
-  }
+	err := req.Validate()
+	if err != nil {
+		t.Error(err)
+	}
+	assert.Nil(t, err)
 
-  
-  func TestValidation_ShouldNotFail_WhenOnlyBccRecipientsPresent(t *testing.T)  {
-      var request = SendEmailRequest
-          .Create()
-          .Bcc(_validEmail);
+	//var err = SendEmailRequestValidator.Instance.TestValidate(request);
+	//err.ShouldNotHaveValidationErrorFor(r => r);
+}
 
-      //var result = SendEmailRequestValidator.Instance.TestValidate(request);
-      //result.ShouldNotHaveValidationErrorFor(r => r);
-  }
+func TestValidation_ShouldNotFail_WhenOnlyCcRecipientsPresent(t *testing.T) {
+	req := request.CreateSendEmailRequest()
+	req.From = model.NewEmailAddress(_validEmail, "")
+	req.Subject = "subject"
+	req.TextBody = "text body"
+
+	req.Cc = []model.EmailAddress{*model.NewEmailAddress(_validEmail, "")}
+
+	err := req.Validate()
+	if err != nil {
+		t.Error(err)
+	}
+	assert.Nil(t, err)
+}
+
+func TestValidation_ShouldNotFail_WhenOnlyBccRecipientsPresent(t *testing.T) {
+	req := request.CreateSendEmailRequest()
+	req.From = model.NewEmailAddress(_validEmail, "")
+	req.Subject = "subject"
+	req.TextBody = "text body"
+
+	req.Bcc = []model.EmailAddress{*model.NewEmailAddress(_validEmail, "")}
+
+	err := req.Validate()
+	if err != nil {
+		t.Error(err)
+	}
+	assert.Nil(t, err)
+}

@@ -37,6 +37,11 @@ func init() {
 func SendEmailRequestValidation(sl validator.StructLevel) {
 	req := sl.Current().Interface().(SendEmailRequest)
 
+	recipients := len(req.To) + len(req.Cc) + len(req.Bcc)
+	if recipients == 0 {
+		sl.ReportError("Recipients", "Recipients", "recipients", "There should be at least one email recipient added to either To, Cc or Bcc.", "")
+	}
+
 	// Eğer TemplateId yoksa Subject zorunlu
 	if req.TemplateId == "" {
 		if req.Subject == "" {

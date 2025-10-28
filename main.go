@@ -9,8 +9,8 @@ import (
 	"os"
 	"sort"
 
-	"gitlab.com/maydere/mailtrap-go/emails/model"
-	"gitlab.com/maydere/mailtrap-go/emails/request"
+	"github.com/bakbuz/mailtrap-go/emails/model"
+	"github.com/bakbuz/mailtrap-go/emails/request"
 )
 
 func main() {
