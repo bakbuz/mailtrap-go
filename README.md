@@ -19,23 +19,6 @@ The Mailtrap Go client provides comprehensive access to the Mailtrap API v2.0, i
 - Send an email with a template
 - Send emails with attachments
 
-### Email Sandbox (Testing)
-- Send an email
-- Send an email with a template
-- Message management
-- List inboxes
-- Get inbox details
-- Update inbox settings
-- Create, read, update, and delete projects
-- Project configuration and settings
-
-### General
-- Account access management
-- Permissions management
-- List accounts you have access to
-- Billing information and usage statistics
-- Domain verification
-
 ## Quick Start
 The following few simple steps will bring Mailtrap API functionality into your Go project.
 
