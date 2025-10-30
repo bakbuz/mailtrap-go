@@ -48,32 +48,8 @@ Add Mailtrap package:
 go get -u github.com/bakbuz/mailtrap-go
 ```
 
-### Configure
-Add Mailtrap services to the DI container.
-
-```csharp
-using Mailtrap;
-   
-...
-   
-hostBuilder.ConfigureServices((context, services) =>
-{
-   services.AddMailtrapClient(options =>
-   {
-      // Definitely, hardcoding a token isn't a good idea.
-      // This example uses it for simplicity, but in real-world scenarios
-      // you should consider more secure approaches for storing secrets.
-         
-      // Environment variables can be an option, as well as other solutions:
-      // https://learn.microsoft.com/aspnet/core/security/app-secrets
-      // or https://learn.microsoft.com/aspnet/core/security/key-vault-configuration
-      options.ApiToken = "<API_TOKEN>";
-   });
-});   
-```
-
 ### Use
-Now you can inject `IMailtrapClient` instance in any application service and use it to make API calls.
+Now you can inject `EmailClient` instance in any application service and use it to make API calls.
 
 ```GO
 // client
