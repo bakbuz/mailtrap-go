@@ -75,55 +75,25 @@ hostBuilder.ConfigureServices((context, services) =>
 ### Use
 Now you can inject `IMailtrapClient` instance in any application service and use it to make API calls.
 
-```csharp
-using Mailtrap;
-using Mailtrap.Emails.Requests;
-using Mailtrap.Emails.Responses;
+```GO
+// client
+var client emails.EmailClient = emails.NewEmailClient("<API_KEY>")
    
 
-namespace MyAwesomeProject;
+// request
+req := request.Create().
+	WithFrom("john.doe@demomailtrap.com", "John Doe").
+	WithTo("hero.bill@galaxy.net", "").
+	WithSubject("Invitation to Earth").
+	WithTextBody("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.")
 
-
-public sealed class SendEmailService : ISendEmailService
-{
-    private readonly IMailtrapClient _mailtrapClient;
-
-
-    public SendEmailService(IMailtrapClient mailtrapClient)
-    {
-        _mailtrapClient = mailtrapClient;
-    }
-
-
-    public async Task DoWork()
-    {
-        try 
-        {
-            SendEmailRequest request = SendEmailRequest
-                .Create()
-                .From("john.doe@demomailtrap.com", "John Doe")
-                .To("hero.bill@galaxy.net")
-                .Subject("Invitation to Earth")
-                .Text("Dear Bill,\n\nIt will be a great pleasure to see you on our blue planet next weekend.\n\nBest regards, John.");
-
-            SendEmailResponse response = await _mailtrapClient
-                .Email()
-                .Send(request);
-                
-            string messageId = response.MessageIds.FirstOrDefault();
-        }
-        catch (MailtrapException mtex)
-        {
-            // handle Mailtrap API specific exceptions
-        }
-        catch (OperationCancelledException ocex)
-        {
-            // handle cancellation
-        }
-        catch (Exception ex)
-        {
-            // handle other exceptions
-        }   
-    }
+// response
+res, err := client.Send(context.Background(), req)
+if err != nil {
+	log.Fatal(err)
 }
+
+messageIds := res.MessageIds
+log.Println(messageIds)
+
 ```
