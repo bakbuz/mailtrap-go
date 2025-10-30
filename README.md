@@ -42,13 +42,7 @@ The following few simple steps will bring Mailtrap API functionality into your G
 ### Install
 The Mailtrap Go client packages are available through GitHub Packages.
 
-First, add the GitHub Packages source to your NuGet configuration:
-
-```console
-dotnet nuget add source https://nuget.pkg.github.com/mailtrap/index.json --name github-mailtrap
-```
-
-Then add Mailtrap package:
+Add Mailtrap package:
 
 ```console
 go get -u github.com/bakbuz/mailtrap-go
